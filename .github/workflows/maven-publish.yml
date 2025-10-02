@@ -1,4 +1,4 @@
-name: Build with Gradle
+name: Build
 
 on:
   workflow_dispatch:
@@ -31,9 +31,17 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      # 修复执行权限问题
+      # [span_0](start_span)修复执行权限问题[span_0](end_span)
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
+
+      # **** 新增步骤：为 Gradle 准备本地依赖文件 ****
+      - name: Prepare Local Dependency for CI
+        run: |
+          # 创建 libs 文件夹
+          mkdir libs
+          # 将根目录下的 JAR 文件移动到 libs/ 文件夹中
+          mv WeaponsOfMiracle.jar libs/WeaponsOfMiracle.jar
 
       - name: Build with Gradle
         run: ./gradlew build --stacktrace
