@@ -1,0 +1,7 @@
+- name: Prepare Local Dependency
+  run: |
+    mkdir libs
+    mv WeaponsOfMiracle.jar libs/WeaponsOfMiracle.jar
+    
+- name: Run build
+  run: ./gradlew build
