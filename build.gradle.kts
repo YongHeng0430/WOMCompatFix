@@ -1,4 +1,4 @@
-import java.time.Instant // [修复 1] 导入 java.time.Instant 解决编译错误
+import java.time.Instant 
 
 plugins {
     id("net.minecraftforge.gradle") version "6.0.+"
@@ -53,9 +53,9 @@ dependencies {
     // Mixin
     annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
 
-    // [修复 2] 编译依赖：添加 Weapons of Miracle Mod 的 JAR 文件
-    // 确保您已将目标 Mod 的 JAR 包放入项目根目录的 'libs' 文件夹中
-    compileOnly(files("libs/WeaponsOfMiracle.jar")) 
+    // **** 最终修复：使用 implementation 强制 Forge 处理目标 JAR 的类路径 ****
+    // 确保 WeaponsOfMiracle.jar 位于 libs/ 文件夹中
+    implementation(files("libs/WeaponsOfMiracle.jar")) 
 }
 
 mixin {
@@ -76,7 +76,7 @@ tasks.withType<Jar> {
             "Implementation-Title" to project.name,
             "Implementation-Version" to project.version,
             "Implementation-Vendor" to "yourname",
-            "Implementation-Timestamp" to Instant.now().toString(), // 使用已导入的 Instant
+            "Implementation-Timestamp" to Instant.now().toString(), 
             "MixinConfigs" to "mixins.womfix.json"
         )
     }
