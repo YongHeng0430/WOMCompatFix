@@ -1,10 +1,10 @@
-name: Build
+name: Build with Gradle
 
 on:
-  workflow_dispatch: # 手动触发
-  push:              # 推送时触发
+  workflow_dispatch:
+  push:
     branches: [ main ]
-  pull_request:      # PR 时触发
+  pull_request:
     branches: [ main ]
 
 jobs:
@@ -12,18 +12,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 拉取仓库代码
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 设置 JDK（Minecraft/Fabric/Forge 通常需要 JDK 17 或 21，看你项目的 build.gradle）
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: 17
           distribution: temurin
 
-      # 缓存 Gradle（加快构建速度）
       - name: Cache Gradle packages
         uses: actions/cache@v4
         with:
@@ -34,11 +31,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      # 执行构建
+      # 修复执行权限问题
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
       - name: Build with Gradle
         run: ./gradlew build --stacktrace
 
-      # 上传生成的 jar 文件（build/libs/ 里）
       - name: Upload JAR artifact
         uses: actions/upload-artifact@v4
         with:
