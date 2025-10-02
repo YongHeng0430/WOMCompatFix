@@ -1,3 +1,5 @@
+import java.time.Instant // <-- 修复 1：导入 java.time.Instant
+
 plugins {
     id("net.minecraftforge.gradle") version "6.0.+"
     id("org.parchmentmc.librarian.forgegradle") version "1.+"
@@ -70,7 +72,7 @@ tasks.withType<Jar> {
             "Implementation-Title" to project.name,
             "Implementation-Version" to project.version,
             "Implementation-Vendor" to "yourname",
-            "Implementation-Timestamp" to java.time.Instant.now().toString(),
+            "Implementation-Timestamp" to Instant.now().toString(), // <-- 修复 2：使用已导入的 Instant
             "MixinConfigs" to "mixins.womfix.json"
         )
     }
