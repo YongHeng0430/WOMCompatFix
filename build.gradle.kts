@@ -53,9 +53,9 @@ dependencies {
     // Mixin
     annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
 
-    // **** 最终修复：使用 modCompile 并移除 'libs/' 路径 ****
-    // 目标文件 WeaponsOfMiracle.jar 位于根目录，modCompile 确保了 Mixin 目标被识别。
-    modCompile(files("WeaponsOfMiracle.jar")) 
+    // **** 最终修复：使用 modCompile 和标准的 libs/ 路径 ****
+    // Mixin 处理器在 CI 环境中最容易识别的路径。
+    modCompile(files("libs/WeaponsOfMiracle.jar")) 
 }
 
 mixin {
