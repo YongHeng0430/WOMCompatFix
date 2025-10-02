@@ -53,9 +53,9 @@ dependencies {
     // Mixin
     annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
 
-    // **** 最终修复：使用 implementation 强制 Forge 处理目标 JAR 的类路径 ****
-    // 确保 WeaponsOfMiracle.jar 位于 libs/ 文件夹中
-    implementation(files("libs/WeaponsOfMiracle.jar")) 
+    // **** 最终修复：使用 modCompile 并移除 'libs/' 路径 ****
+    // 目标文件 WeaponsOfMiracle.jar 位于根目录，modCompile 确保了 Mixin 目标被识别。
+    modCompile(files("WeaponsOfMiracle.jar")) 
 }
 
 mixin {
