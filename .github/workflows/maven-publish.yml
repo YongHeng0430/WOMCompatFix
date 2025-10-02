@@ -31,17 +31,25 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      # 修复执行权限问题
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      # **** 关键修复步骤：在构建前移动文件 ****
-      - name: Prepare Local Dependency for CI
+      # **** 最终修复：使用 CP 命令并添加诊断 ****
+      - name: Prepare Local Dependency for CI (Final Attempt)
         run: |
-          # 1. 创建 libs 文件夹
+          # 1. 打印根目录文件列表，用于诊断
+          echo "Files in root directory before move:"
+          ls -l
+          
+          # 2. 创建 libs 文件夹
           mkdir libs
-          # 2. 将根目录下的 JAR 文件移动到 libs/ 文件夹中
-          mv WeaponsOfMiracle.jar libs/WeaponsOfMiracle.jar
+          
+          # 3. 复制文件 (比 mv 移动更安全，以防权限或路径问题)
+          cp WeaponsOfMiracle.jar libs/WeaponsOfMiracle.jar
+          
+          # 4. 打印 libs 文件夹内容，用于诊断
+          echo "Files in libs directory after copy:"
+          ls -l libs/
 
       - name: Build with Gradle
         run: ./gradlew build --stacktrace
