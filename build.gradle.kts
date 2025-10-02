@@ -3,7 +3,8 @@ import java.time.Instant
 plugins {
     id("net.minecraftforge.gradle") version "6.0.+"
     id("org.parchmentmc.librarian.forgegradle") version "1.+"
-    id("org.spongepowered.mixin") version "0.7.+\"
+    // **** 修复点：将 \" 更改为 " ****
+    id("org.spongepowered.mixin") version "0.7.+" 
 }
 
 version = "1.0.0"
@@ -53,8 +54,7 @@ dependencies {
     // Mixin
     annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
 
-    // **** 最终修复：将 modCompile 更改为 implementation ****
-    // implementation 是新版本 Forge Gradle 中本地依赖的标准用法，解决了 Unresolved reference 错误。
+    // 最终修复：使用 implementation 和正确的 libs/ 路径
     implementation(files("libs/WeaponsOfMiracle.jar")) 
 }
 
