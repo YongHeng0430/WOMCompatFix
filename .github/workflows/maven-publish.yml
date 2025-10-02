@@ -1,4 +1,4 @@
-name: Build
+name: Build with Gradle
 
 on:
   workflow_dispatch:
@@ -41,7 +41,6 @@ jobs:
           # 1. 创建 libs 文件夹
           mkdir libs
           # 2. 将根目录下的 JAR 文件移动到 libs/ 文件夹中
-          # 这一步解决了 Gradle 在 CI 环境中找不到文件的路径问题。
           mv WeaponsOfMiracle.jar libs/WeaponsOfMiracle.jar
 
       - name: Build with Gradle
