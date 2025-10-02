@@ -9,12 +9,14 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    # **** 切换到 Windows 环境 ****
+    runs-on: windows-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
+        # 确保 libs/WeaponsOfMiracle.jar 文件已提交到 Git 仓库
+        
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
@@ -31,20 +33,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-        
-      # **** 关键诊断步骤 ****
-      - name: Verify File Structure
-        run: |
-          echo "Listing files in root directory:"
-          ls -l
-          echo "Listing files in libs directory:"
-          # 检查 CI 是否检出了 libs/ 文件夹及其内容
-          ls -l libs/
+      # Windows 环境不需要 chmod +x 命令
+
+      # **** 移除文件移动步骤 ****
+      # 文件已在本地手动移动并提交到 libs/ 文件夹中，因此不需要额外的移动命令。
 
       - name: Build with Gradle
-        run: ./gradlew build --stacktrace
+        # Windows 上使用 gradlew.bat
+        run: .\gradlew.bat build --stacktrace
 
       - name: Upload JAR artifact
         uses: actions/upload-artifact@v4
