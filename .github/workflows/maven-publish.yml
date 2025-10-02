@@ -34,22 +34,8 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      # **** 最终修复：使用 CP 命令并添加诊断 ****
-      - name: Prepare Local Dependency for CI (Final Attempt)
-        run: |
-          # 1. 打印根目录文件列表，用于诊断
-          echo "Files in root directory before move:"
-          ls -l
-          
-          # 2. 创建 libs 文件夹
-          mkdir libs
-          
-          # 3. 复制文件 (比 mv 移动更安全，以防权限或路径问题)
-          cp WeaponsOfMiracle.jar libs/WeaponsOfMiracle.jar
-          
-          # 4. 打印 libs 文件夹内容，用于诊断
-          echo "Files in libs directory after copy:"
-          ls -l libs/
+      # **** 文件移动步骤已被移除！****
+      # CI 现在直接从 Git 仓库中检出 libs/WeaponsOfMiracle.jar，路径完全匹配。
 
       - name: Build with Gradle
         run: ./gradlew build --stacktrace
