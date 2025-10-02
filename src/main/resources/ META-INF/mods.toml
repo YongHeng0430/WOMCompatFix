@@ -4,10 +4,10 @@ license="MIT"
 
 [[mods]]
 modId="womfix"
-version="${mod_version}"
-displayName="${mod_name}"
-description="${mod_description}"
-authors="${mod_author}"
+version="1.0.0"
+displayName="WOM Epic Fight Compatibility Fix"
+description="Fixes compatibility between Weapons of Miracle and Epic Fight"
+authors="YourName"
 
 [[dependencies.womfix]]
 modId="forge"
